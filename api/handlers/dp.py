@@ -93,7 +93,7 @@ async def answer_q4(message: types.Message, state: FSMContext):
     """Четвёртый вопрос.
     Просим ввести электронную почту"""
     # Достаем переменные
-    user_name = message.from_user.first_name
+    # user_name = message.from_user.first_name
     tel_number, num = phone_checker(message.text)
     if num == 1:
         await state.update_data(tel_number=tel_number)
@@ -154,12 +154,16 @@ async def answer_q6(message: types.Message, state: FSMContext):
         async with state.proxy() as data:
             d = [data[i] for i in l]
             table.add_row(d)
-            if came_to == 'DS':
-                await bot.send_message(chat_id=ds_admin, text=d, parse_mode='HTML')
-            elif came_to == 'JS':
-                await bot.send_message(chat_id=js_admin, text=d, parse_mode='HTML')
-            else:
+
+            send_message = {'DS': bot.send_message(chat_id=ds_admin, text=d, parse_mode='HTML'),
+                            'JS': bot.send_message(chat_id=js_admin, text=d, parse_mode='HTML')
+            }
+
+            try:
+                send_message[came_to]()
+            except:
                 logging.raiseExceptions('came_to is FALSE!')
+
         await state.finish()
         
     elif bool == 'Нет':
