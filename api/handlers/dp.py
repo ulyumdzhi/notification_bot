@@ -155,8 +155,9 @@ async def answer_q6(message: types.Message, state: FSMContext):
             d = [data[i] for i in l]
             table.add_row(d)
 
-            send_message = {'DS': bot.send_message(chat_id=ds_admin, text=d, parse_mode='HTML'),
-                            'JS': bot.send_message(chat_id=js_admin, text=d, parse_mode='HTML')
+            send_message = {
+                'DS': bot.send_message(chat_id=ds_admin, text=d, parse_mode='HTML'),
+                'JS': bot.send_message(chat_id=js_admin, text=d, parse_mode='HTML')
             }
 
             try:
