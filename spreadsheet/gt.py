@@ -92,6 +92,4 @@ class GoogleTable:
         self.update()
         logging.info(f'entries_count after new row {self.entries_count}')
 
-
 table = GoogleTable(CREDENTIALS_FILE, spreadsheet_id)
-

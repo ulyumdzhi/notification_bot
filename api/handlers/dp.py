@@ -1,4 +1,3 @@
-
 import time
 import logging
 
@@ -31,7 +30,7 @@ async def send_help(message: types.Message):
 
     await message.answer(f"{st.HELP_TEXT}" %user_name, reply_markup=kb.secondMenu)
 
-@dp.message_handler(Command("start"), state=None)
+@dp.message_handler(Command("start"), state="*")
 async def send_welcome(message: types.Message):
     """Обработка стартового сообщения"""
     user_name = message.from_user.first_name
@@ -162,10 +161,12 @@ async def answer_q6(message: types.Message, state: FSMContext):
             else:
                 logging.raiseExceptions('came_to is FALSE!')
         await state.finish()
-
-    
+        
     elif bool == 'Нет':
         await message.answer(st.NO_TEXT %name)
         await state.finish()
+
+    else:
+        pass
 
     await state.finish()
