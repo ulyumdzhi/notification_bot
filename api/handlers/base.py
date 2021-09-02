@@ -6,9 +6,8 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
 
 from api.loader import bot, dp, ds_admin, js_admin
-from api.checkers import email_checker, phone_checker
-from api import static_text as st
-from api import keyboard as kb
+from api.utils import static_text as st
+from api.utils import keyboard as kb
 from states.user_data import UserData as ud
 
 @dp.message_handler(content_types=st.NOT_TARGET_CONTENT_TYPES)
@@ -40,3 +39,17 @@ async def send_welcome(message: types.Message):
 
     await message.answer(f"{st.HELLO}" %user_name, reply_markup=kb.mainMenu)
     await ud.came_to.set()
+
+@dp.message_handler(text='Начать заново', state="*")
+async def restart(message: types.Message):
+    """Обработка рестарта бота"""
+    user_fullname = message.from_user.full_name
+    user_id = message.from_user.id   
+
+    logging.info(f"ReStart massage from id={user_id} named {user_fullname} at {time.strftime('%X %x')}")
+
+    await send_welcome(message)
+    
+
+
+    

@@ -6,9 +6,9 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
 
 from api.loader import bot, dp, ds_admin, js_admin
-from api.checkers import email_checker, phone_checker
-from api import static_text as st
-from api import keyboard as kb
+from api.utils.checkers import email_checker, phone_checker
+from api.utils import static_text as st
+from api.utils import keyboard as kb
 from states.user_data import UserData as ud
 from spreadsheet.gt import table
 
