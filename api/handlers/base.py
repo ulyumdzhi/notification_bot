@@ -5,7 +5,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
 
-from api.loader import bot, dp, ds_admin, js_admin
+from api.loader import bot, dp
 from api.utils import static_text as st
 from api.utils import keyboard as kb
 from states.user_data import UserData as ud
