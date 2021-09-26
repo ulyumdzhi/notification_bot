@@ -35,3 +35,5 @@ NOT_TARGET_CONTENT_TYPES = ['photo', 'audio', 'document', 'sticker',
 'migrate_to_chat_id', 'migrate_from_chat_id', 'pinned_message']
 
 NOT_TARGET_TEXT = 'Извини, %s, этот бот обрабатывает только текстовые данные\!'
+
+INFO = 'pass'
