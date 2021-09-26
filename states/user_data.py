@@ -13,4 +13,5 @@ class UserData(StatesGroup):
     came_to = State()
     came_at_time = State()
     bool = State()
+    info = State()
     

@@ -12,6 +12,7 @@ from api.utils import keyboard as kb
 from states.user_data import UserData as ud
 from spreadsheet.gt import table
 
+
 @dp.message_handler(state=ud.came_to)
 async def answer_q1(message: types.Message, state: FSMContext):
     """Первый вопрос.
@@ -19,18 +20,16 @@ async def answer_q1(message: types.Message, state: FSMContext):
     Просим вручную ввести его имя и фамилию для базы"""
 
     user_name = message.from_user.first_name
-    user_fullname = message.from_user.full_name
-    user_id = message.from_user.id    
+    # user_fullname = message.from_user.full_name
+    # user_id = message.from_user.id    
     answer = message.text
 
     logging.info(f"from {user_name} answer {answer} at {time.strftime('%X %x')}")
 
     await state.update_data(came_to=answer)
 
-    await message.answer(f"{st.NAME}")
+    await message.answer(f"{st.NAME}", reply_markup=kb.main_menu)
 
-    await state.update_data(user_id=user_id)
-    await state.update_data(user_name=user_fullname)
     await ud.name_surname.set()
 
 @dp.message_handler(state=ud.name_surname)
@@ -41,9 +40,7 @@ async def answer_q2(message: types.Message, state: FSMContext):
     name_surname = message.text
 
     await state.update_data(name_surname=name_surname)
-
-    await message.answer(f"{st.CAME_FROM}" %name_surname)
-
+    await message.answer(f"{st.CAME_FROM}" %name_surname, reply_markup=kb.main_menu)
     await ud.came_from.set()
 
 @dp.message_handler(state=ud.came_from)
@@ -55,7 +52,7 @@ async def answer_q3(message: types.Message, state: FSMContext):
 
     await state.update_data(came_from=came_from)
 
-    await message.answer(f"{st.TEL_NUMBER}" %user_name)
+    await message.answer(f"{st.TEL_NUMBER}" %user_name, reply_markup=kb.main_menu)
     await ud.tel_number.set()
 
 @dp.message_handler(state=ud.tel_number)
@@ -67,7 +64,7 @@ async def answer_q4(message: types.Message, state: FSMContext):
     tel_number, num = phone_checker(message.text)
     if num == 1:
         await state.update_data(tel_number=tel_number)
-        await message.answer(f"{st.EMAIL}")
+        await message.answer(f"{st.EMAIL}", reply_markup=kb.main_menu)
         await ud.email.set()
     else:
         await message.answer(st.TEL_ERROR, parse_mode='HTML')

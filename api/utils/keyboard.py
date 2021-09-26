@@ -1,4 +1,5 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup as RKM
+from aiogram.types import KeyboardButton as KB
 
 class ReplyTexts:
     def __init__(self):
@@ -9,30 +10,41 @@ class ReplyTexts:
         self.repeat = 'Начать заново'
         self.yes = 'Да'
         self.no = 'Нет'
+        self.agree = 'Даю согласие!'
+        self.disagree = 'Не даю согласие!'
+        
+rt = ReplyTexts()
 
-RT = ReplyTexts()
+# Base buttons
+btn_find = KB(rt.howtofind)
+btn_here = KB(rt.iamhere)
+btn_repeat= KB(rt.repeat)
+btn_yes = KB(rt.yes)
+btn_no = KB(rt.no)
 
-btnRepeat= KeyboardButton(RT.repeat)
+# Hello menu
+btn_agreed = KB(rt.agree)
+btn_disagreed= KB(rt.disagree)
+hello_menu = RKM(resize_keyboard=True, 
+                one_time_keyboard=True)\
+                .add(btn_disagreed, btn_repeat, btn_agreed)
 
-# Main Menu
-btnDS = KeyboardButton(RT.ds)
-btnJS = KeyboardButton(RT.js)
+# Q1 menu
+btn_ds = KB(rt.ds)
+btn_js = KB(rt.js)
+dsjs_menu = RKM(resize_keyboard=True, 
+            one_time_keyboard=True)\
+            .add(btn_js, btn_repeat, btn_ds)
 
-mainMenu = ReplyKeyboardMarkup(resize_keyboard=True, 
-                                 one_time_keyboard=True).add(btnJS, btnDS)
+# Main menu
+main_menu = RKM(resize_keyboard=True, 
+            one_time_keyboard=True)\
+            .add(btn_find, btn_repeat, btn_here)
 
 # Bool Menu
-btnYes = KeyboardButton(RT.yes)
-btnNo = KeyboardButton(RT.no)
-booleanMenu = ReplyKeyboardMarkup(resize_keyboard=True, 
-                                 one_time_keyboard=True).add(btnNo, btnRepeat, btnYes)
-
-# Second Menu
-btnElbrus = KeyboardButton(RT.howtofind)
-btnHere = KeyboardButton(RT.iamhere)
-
-secondMenu = ReplyKeyboardMarkup(resize_keyboard=True, 
-                                 one_time_keyboard=True).add(btnElbrus, btnRepeat, btnHere)
+booleanMenu = RKM(resize_keyboard=True, 
+                one_time_keyboard=True)\
+                .add(btn_no, btn_repeat, btn_yes)
 
 
 
